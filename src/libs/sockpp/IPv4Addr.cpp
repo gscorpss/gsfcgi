@@ -1,6 +1,6 @@
 #include "IPv4Addr.h"
 #include <stdexcept>
-#include "Exceptions.h"
+#include <system/Exceptions.h>
 #include <sstream>
 
 namespace sockpp
@@ -38,7 +38,7 @@ void IPv4Addr::init(const char* str)
     {
         std::stringstream stream;
         stream << '\'' << str << "' is not valid IPv4 address";
-        throw Exception(stream.str());
+        throw gssystem::Exception(stream.str());
     }
 }
 

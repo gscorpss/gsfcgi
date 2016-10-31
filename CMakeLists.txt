@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
-project(sock++)
+project(gsfcgi)
 
 add_definitions(-std=c++11)
 

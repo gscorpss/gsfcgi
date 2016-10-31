@@ -18,7 +18,7 @@ function(AddUnitTest name src linklib)
 
     add_test(
         NAME ${name}
-        COMMAND $<TARGET_FILE:${name}>
+        COMMAND  $<TARGET_FILE:${name}>
         )
 endfunction(AddUnitTest)
 

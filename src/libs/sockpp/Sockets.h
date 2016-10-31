@@ -13,7 +13,7 @@ public:
     Socket(Socket&& sock);
     Socket(const Socket&) = delete;
 
-    ~Socket();
+    virtual ~Socket();
 
     template<class Operation>
     Operation operation() { Operation o; o.setFd(fd); return o; }

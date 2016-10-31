@@ -60,6 +60,10 @@ struct Data : public SocketGetter
 
 };
 
+struct Accept : public SocketGetter
+{
+    Socket accept();
+};
 
 struct SocketTraits : public SocketGetter
 {

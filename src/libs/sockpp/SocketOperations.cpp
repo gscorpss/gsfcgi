@@ -89,6 +89,15 @@ size_t Data::sendTo(const IPv4Addr& addr, uint16_t port, void* buffer, size_t si
     return false;
 }
 
+Socket Accept::accept()
+{
+    sockaddr_in saddr;
+    socklen_t len = sizeof(saddr);
+    Socket sock(::accept(getFd(), (sockaddr*)&saddr, &len));
+    return std::move(sock);
+}
+
+
 SocketTraits::SocketTraits (int fd)
 :SocketGetter()
 {

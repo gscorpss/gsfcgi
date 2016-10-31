@@ -1,5 +1,5 @@
 #include "Sockets.h"
-#include "Exceptions.h"
+#include <system/Exceptions.h>
 #include <stdexcept>
 #include <iostream>
 #include <fcntl.h>
@@ -47,7 +47,7 @@ NetSocket::NetSocket(ProtocolFamilyEnum family, ProtocolTypeEnum type)
         std::stringstream stream;
         stream << "Unable to create socket family=" << (int)family
             << " type=" << (int)type;
-        throw ErrnoException(stream.str());
+        throw gssystem::ErrnoException(stream.str());
     }
 }
 

@@ -6,7 +6,7 @@
 #include <array>
 #include "Epoller.h"
 #include "Sockets.h"
-#include "Exceptions.h"
+#include <system/Exceptions.h>
 #include "SocketOperations.h"
 
 const int MaxEvent = 100;
@@ -32,7 +32,7 @@ Epoller::Epoller()
 {
     if (epollHndl < 0)
     {
-        throw ErrnoException("Unable to create epoll file descriptor");
+        throw gssystem::ErrnoException("Unable to create epoll file descriptor");
     }
 }
 
@@ -45,6 +45,14 @@ int Epoller::poll(int timeout)
 {
     std::array<epoll_event, MaxEvent> events;
     int res = epoll_wait(epollHndl, events.data(), events.size(), timeout);
+    if (res == -1)
+    {
+        if (errno == EINTR)
+            return 0;
+
+        std::cerr << "epoll wait error: (" << errno << ") " << strerror(errno) << std::endl;
+        return res;
+    }
     for(int i = 0; i < res; ++i)
     {
         reinterpret_cast<EpollSubscription*>(events[i].data.ptr)->onEvent((sockpp::EpollEventType)events[i].events);
