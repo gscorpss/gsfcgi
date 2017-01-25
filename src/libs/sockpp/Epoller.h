@@ -10,6 +10,8 @@ class Socket;
 
 enum class EpollEventType : unsigned int
 {
+    EMPTY = 0,
+    
     /// @brief The associated file is available for read(2) operations.
     IN = EPOLLIN,
 
@@ -18,7 +20,7 @@ enum class EpollEventType : unsigned int
 
     /** @brief Stream  socket peer closed connection, or shut down writing half of connection
      * (This flag is especially useful for writing simple code to detect peer shutdown when using
-     * Edge Triggered moni-toring.) */
+     * Edge Triggered monitoring.) */
     RDHUP = EPOLLRDHUP,
 
     /// @brief There is urgent data available for read(2) operations.
@@ -33,7 +35,7 @@ enum class EpollEventType : unsigned int
 
     /** @brief Sets the Edge Triggered behavior for the associated file descriptor.
      * The default behavior for epoll is Level Triggered.  See epoll(7) for more detailed information about Edge and
-     * Level  Trig-gered event distribution architectures. */
+     * Level  Triggered event distribution architectures. */
     ET = EPOLLET
 };
 

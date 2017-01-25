@@ -6,6 +6,7 @@
 #include "Sockets.h"
 #include "IPv4Addr.h"
 #include "SocketOperations.h"
+#include "StreamBuffer.h"
 
 namespace sockpp
 {
@@ -87,6 +88,32 @@ size_t Data::sendTo(const IPv4Addr& addr, uint16_t port, void* buffer, size_t si
     if (res != -1)
         return res;
     return false;
+}
+
+size_t Data::send(void* buffer, size_t size)
+{
+    return ::send(getFd(), buffer, size, 0);
+}
+
+size_t Data::send(StreamBuffer& buffer)
+{
+    size_t sz = send(buffer.data(), buffer.dataSize());
+    if (sz > 0)
+        buffer.confirmReceived(sz);
+    return sz;
+}
+
+size_t Data::recv(void* buffer, size_t size)
+{
+    return ::recv(getFd(), buffer, size, 0);
+}
+
+size_t Data::recv(StreamBuffer& buffer)
+{
+    size_t sz = recv(buffer.writablePtr(), buffer.writableSize());
+    if (sz > 0)
+        buffer.confirmWrite(sz);
+    return sz;
 }
 
 Socket Accept::accept()

@@ -8,6 +8,7 @@ namespace sockpp
 {
 
 class IPv4Addr;
+class StreamBuffer;
 
 namespace operations
 {
@@ -57,7 +58,11 @@ struct Connect : public SocketGetter
 struct Data : public SocketGetter
 {
     size_t sendTo(const IPv4Addr& addr, uint16_t port, void* buffer, size_t size);
+    size_t send(void* buffer, size_t size);
+    size_t send(StreamBuffer& buffer);
 
+    size_t recv(void* buffer, size_t size);
+    size_t recv(StreamBuffer& buffer);
 };
 
 struct Accept : public SocketGetter
