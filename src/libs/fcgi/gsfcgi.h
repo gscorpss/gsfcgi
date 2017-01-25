@@ -15,7 +15,7 @@ protected:
     struct Param;
 public:
     typedef std::unique_ptr<FcgiRequest> Ptr;
-    void finishRequest(uint64_t resultCode = 0);
+    void setResultCode(uint64_t resultCode = 0);
     const std::string& getAttribute(const std::string& name);
     sockpp::InStreamBuffer in() { return sockpp::InStreamBuffer(inBuffer); }
     sockpp::OutStreamBuffer out() { return sockpp::OutStreamBuffer(outBuffer); }
